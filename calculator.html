@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: 'Verdana', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #e8f5e9;
+        }
+        .calculator {
+            width: 320px;
+            background: #1e88e5;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        .display {
+            background: #0d47a1;
+            color: #ffffff;
+            text-align: right;
+            padding: 15px;
+            font-size: 2rem;
+            min-height: 60px;
+            border-bottom: 2px solid #1565c0;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            background: #bbdefb;
+            padding: 10px;
+        }
+        button {
+            background: #ffffff;
+            border: 2px solid #bbdefb;
+            padding: 15px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        button:hover {
+            background: #e3f2fd;
+            border-color: #90caf9;
+        }
+        button.operator {
+            background: #ff7043;
+            color: #ffffff;
+            border: 2px solid #ffab91;
+        }
+        button.operator:hover {
+            background: #ff5722;
+        }
+        button.equal {
+            background: #43a047;
+            color: #ffffff;
+            grid-column: span 2;
+            border: 2px solid #a5d6a7;
+        }
+        button.equal:hover {
+            background: #388e3c;
+        }
+        button.clear {
+            background: #e53935;
+            color: #ffffff;
+            border: 2px solid #ef9a9a;
+        }
+        button.clear:hover {
+            background: #c62828;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display" id="display">0</div>
+        <div class="buttons">
+            <button class="clear" onclick="clearDisplay()">C</button>
+            <button class="operator" onclick="appendValue('/')">&divide;</button>
+            <button class="operator" onclick="appendValue('*')">&times;</button>
+            <button class="operator" onclick="appendValue('-')">&minus;</button>
+            <button onclick="appendValue('7')">7</button>
+            <button onclick="appendValue('8')">8</button>
+            <button onclick="appendValue('9')">9</button>
+            <button class="operator" onclick="appendValue('+')">+</button>
+            <button onclick="appendValue('4')">4</button>
+            <button onclick="appendValue('5')">5</button>
+            <button onclick="appendValue('6')">6</button>
+            <button onclick="appendValue('.')">.</button>
+            <button onclick="appendValue('1')">1</button>
+            <button onclick="appendValue('2')">2</button>
+            <button onclick="appendValue('3')">3</button>
+            <button class="equal" onclick="calculateResult()">=</button>
+            <button onclick="appendValue('0')">0</button>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+
+        function appendValue(value) {
+            if (display.innerText === '0' && value !== '.') {
+                display.innerText = value;
+            } else {
+                display.innerText += value;
+            }
+        }
+
+        function clearDisplay() {
+            display.innerText = '0';
+        }
+
+        function calculateResult() {
+            try {
+                let result = eval(display.innerText);
+                if (result === Infinity || isNaN(result)) {
+                    display.innerText = 'Error';
+                } else {
+                    display.innerText = result;
+                }
+            } catch (error) {
+                display.innerText = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
